@@ -14,6 +14,12 @@
   "opt_shows_time_indicator_label": {
     "message": "現在時刻のラインを表示する"
   },
+  "opt_schedule_add_popup_title": {
+    "message": "予定登録のポップアップ"
+  },
+  "opt_shows_todo_tab_label": {
+    "message": "ToDo を登録できるようにする"
+  },
   "save_options": {
     "message": "設定を保存する"
   },

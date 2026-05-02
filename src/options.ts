@@ -19,6 +19,7 @@ async function init() {
     'shows-time-indicator',
     v.showsTimeIndicator !== false,
   );
+  const showsTodoTab = input('shows-todo-tab', v.showsTodoTab !== false);
 
   document
     .querySelector('#ext-options')!
@@ -26,6 +27,7 @@ async function init() {
       ev.preventDefault();
       await store.save({
         showsTimeIndicator: showsTimeIndicator.checked,
+        showsTodoTab: showsTodoTab.checked,
       });
       const saved = document.querySelector<HTMLSpanElement>('.saved')!;
       saved.hidden = false;

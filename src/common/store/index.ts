@@ -1,9 +1,11 @@
 export interface Store {
   showsTimeIndicator?: boolean;
+  showsTodoTab?: boolean;
 }
 
 export const defaultConfig: Store = {
   showsTimeIndicator: true,
+  showsTodoTab: true,
 };
 
 const storageKey = 'grn.config';

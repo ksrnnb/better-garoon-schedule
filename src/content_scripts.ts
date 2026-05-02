@@ -1,9 +1,9 @@
-import { init } from './content/timeIndicatorController';
-import { startDialogEnhancer } from './content/dialog/controller';
+import { init as initTimeIndicator } from './content/timeIndicatorController';
+import { init as initDialogEnhancer } from './content/dialog/controller';
 
 function bootstrap(): void {
-  init();
-  startDialogEnhancer();
+  initTimeIndicator();
+  initDialogEnhancer();
 }
 
 if (document.readyState === 'loading') {

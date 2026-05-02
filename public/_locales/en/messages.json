@@ -14,6 +14,12 @@
   "opt_shows_time_indicator_label": {
     "message": "Show current time line"
   },
+  "opt_schedule_add_popup_title": {
+    "message": "Schedule add popup"
+  },
+  "opt_shows_todo_tab_label": {
+    "message": "Allow adding a ToDo"
+  },
   "save_options": {
     "message": "Save"
   },

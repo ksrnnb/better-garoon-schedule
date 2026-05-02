@@ -1,3 +1,4 @@
+import * as store from '../../common/store';
 import { watchSimpleAddDialog } from './observer';
 import { buildTabBar, TabKey } from './tabs';
 import { buildTodoPanel, readDialogContext } from './todoPanel';
@@ -5,7 +6,7 @@ import { ensureDialogStyle } from './style';
 
 const LOG_PREFIX = '[bgs/dialog]';
 
-export function startDialogEnhancer(): () => void {
+function attach(): () => void {
   ensureDialogStyle();
   return watchSimpleAddDialog(root => {
     const ctx = readDialogContext(root);
@@ -60,5 +61,27 @@ export function startDialogEnhancer(): () => void {
 
     console.debug(LOG_PREFIX, 'tab bar attached', root);
     return true;
+  });
+}
+
+let cleanup: (() => void) | undefined;
+
+export function apply(enabled: boolean): void {
+  if (enabled && !cleanup) {
+    cleanup = attach();
+  } else if (!enabled && cleanup) {
+    cleanup();
+    cleanup = undefined;
+  }
+}
+
+export async function init(): Promise<void> {
+  const v = await store.load();
+  apply(v.showsTodoTab !== false);
+
+  chrome.storage.onChanged.addListener(async (changes, area) => {
+    if (area !== 'local' || !('grn.config' in changes)) return;
+    const next = await store.load();
+    apply(next.showsTodoTab !== false);
   });
 }
