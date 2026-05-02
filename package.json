@@ -1,0 +1,44 @@
+{
+  "name": "better-garoon-schedule",
+  "version": "0.0.1",
+  "description": "Chrome extension that overlays the current-time line on Garoon's day/week schedule view.",
+  "author": "Kyota Okabe",
+  "license": "MIT",
+  "private": true,
+  "packageManager": "pnpm@10.33.0",
+  "scripts": {
+    "start": "webpack --watch",
+    "build": "NODE_ENV=production webpack && sh scripts/zip.sh",
+    "build:dev": "webpack",
+    "icons": "ts-node scripts/generate-icons.ts",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit -p tsconfig.test.json"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.278",
+    "@types/node": "^25.6.0",
+    "@types/webpack": "^5.28.5",
+    "@typescript-eslint/eslint-plugin": "^8.9.0",
+    "@typescript-eslint/parser": "^8.9.0",
+    "copy-webpack-plugin": "^12.0.2",
+    "eslint": "^9.12.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-webpack-plugin": "^6.0.0",
+    "jsdom": "^29.0.2",
+    "prettier": "^3.3.3",
+    "sharp": "^0.34.5",
+    "ts-loader": "^9.5.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3",
+    "vitest": "^4.1.5",
+    "webpack": "^5.95.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "better-garoon-schedule": "link:"
+  }
+}

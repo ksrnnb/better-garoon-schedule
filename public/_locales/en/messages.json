@@ -1,0 +1,23 @@
+{
+  "ext_name": {
+    "message": "Garoon Schedule Extension"
+  },
+  "ext_description": {
+    "message": "Overlays the current-time line on Garoon's day/week schedule view."
+  },
+  "options": {
+    "message": "Options"
+  },
+  "opt_schedule_view_title": {
+    "message": "Schedule view"
+  },
+  "opt_shows_time_indicator_label": {
+    "message": "Show current time line"
+  },
+  "save_options": {
+    "message": "Save"
+  },
+  "saved": {
+    "message": "saved"
+  }
+}

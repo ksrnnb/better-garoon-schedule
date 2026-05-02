@@ -1,0 +1,23 @@
+{
+  "ext_name": {
+    "message": "Garoon Schedule Extension"
+  },
+  "ext_description": {
+    "message": "Garoon の日/週スケジュールに現在時刻のラインを重ねて表示します。"
+  },
+  "options": {
+    "message": "オプション"
+  },
+  "opt_schedule_view_title": {
+    "message": "スケジュール表示"
+  },
+  "opt_shows_time_indicator_label": {
+    "message": "現在時刻のラインを表示する"
+  },
+  "save_options": {
+    "message": "設定を保存する"
+  },
+  "saved": {
+    "message": "保存しました"
+  }
+}
