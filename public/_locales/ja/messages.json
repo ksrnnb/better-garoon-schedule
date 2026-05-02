@@ -1,9 +1,9 @@
 {
   "ext_name": {
-    "message": "Garoon Schedule Extension"
+    "message": "Better Garoon Schedule"
   },
   "ext_description": {
-    "message": "Garoon の日/週スケジュールに現在時刻のラインを重ねて表示します。"
+    "message": "Garoon の日/週スケジュールに現在時刻のラインを重ねて表示し、予定の簡易登録ダイアログに ToDo を追加するタブを表示します。"
   },
   "options": {
     "message": "オプション"
@@ -19,5 +19,38 @@
   },
   "saved": {
     "message": "保存しました"
+  },
+  "tab_schedule": {
+    "message": "予定"
+  },
+  "tab_todo": {
+    "message": "ToDo"
+  },
+  "todo_title_label": {
+    "message": "ToDo名"
+  },
+  "todo_due_label": {
+    "message": "締切日"
+  },
+  "todo_nolimit_label": {
+    "message": "締切なし"
+  },
+  "todo_memo_label": {
+    "message": "メモ"
+  },
+  "todo_submit_label": {
+    "message": "追加する"
+  },
+  "todo_title_required": {
+    "message": "ToDo名を入力してください。"
+  },
+  "todo_submitting": {
+    "message": "送信中…"
+  },
+  "todo_submitted": {
+    "message": "ToDo を追加しました"
+  },
+  "todo_submit_failed": {
+    "message": "追加に失敗しました。再度お試しください。"
   }
 }

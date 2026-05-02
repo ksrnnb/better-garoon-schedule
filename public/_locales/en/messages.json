@@ -1,9 +1,9 @@
 {
   "ext_name": {
-    "message": "Garoon Schedule Extension"
+    "message": "Better Garoon Schedule"
   },
   "ext_description": {
-    "message": "Overlays the current-time line on Garoon's day/week schedule view."
+    "message": "Overlays a current-time line on Garoon's day/week schedule, and adds a ToDo tab to the simple-add schedule dialog."
   },
   "options": {
     "message": "Options"
@@ -19,5 +19,38 @@
   },
   "saved": {
     "message": "saved"
+  },
+  "tab_schedule": {
+    "message": "Event"
+  },
+  "tab_todo": {
+    "message": "ToDo"
+  },
+  "todo_title_label": {
+    "message": "Title"
+  },
+  "todo_due_label": {
+    "message": "Due"
+  },
+  "todo_nolimit_label": {
+    "message": "No deadline"
+  },
+  "todo_memo_label": {
+    "message": "Memo"
+  },
+  "todo_submit_label": {
+    "message": "Add"
+  },
+  "todo_title_required": {
+    "message": "Please enter a title."
+  },
+  "todo_submitting": {
+    "message": "Submitting…"
+  },
+  "todo_submitted": {
+    "message": "ToDo added"
+  },
+  "todo_submit_failed": {
+    "message": "Failed to add. Please try again."
   }
 }
