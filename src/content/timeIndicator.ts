@@ -1,12 +1,14 @@
 const INDICATOR_ID = 'garoon-now-indicator-overlay';
 const STYLE_ID = 'garoon-now-indicator-style';
 
+// 予定作成のポップアップは z-index:1500
+// 予定は z-index: 1 のため、z-index はその中間の値であればよい。
 const STYLE = `
   #${INDICATOR_ID} {
     position: fixed;
     height: 2px;
     background: #d93025;
-    z-index: 99999;
+    z-index: 10;
     pointer-events: none;
     top: var(--gni-top, 0);
     left: var(--gni-left, 0);
