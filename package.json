@@ -1,6 +1,6 @@
 {
   "name": "better-garoon-schedule",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Chrome extension for Cybozu Garoon: overlays a current-time line on the day/week schedule view, and adds a ToDo tab to the simple-add schedule dialog.",
   "author": "Kyota Okabe",
   "license": "MIT",
