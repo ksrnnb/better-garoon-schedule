@@ -24,7 +24,7 @@ function attach(): () => void {
       return false;
     }
 
-    const todoPanel = buildTodoPanel(ctx);
+    const todoPanel = buildTodoPanel(root);
     todoPanel.style.display = 'none';
 
     // Lock the panel's width to the schedule table's so switching tabs

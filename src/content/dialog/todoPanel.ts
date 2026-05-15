@@ -18,7 +18,18 @@ export function readDialogContext(root: HTMLElement): DialogContext | null {
   return { csrfTicket: csrf, bdate };
 }
 
-export function buildTodoPanel(ctx: DialogContext): HTMLElement {
+function readCsrfTicket(root: HTMLElement): string | null {
+  return (
+    root.querySelector<HTMLInputElement>('input[name="csrf_ticket"]')?.value ??
+    null
+  );
+}
+
+export function buildTodoPanel(root: HTMLElement): HTMLElement {
+  // Read bdate only for the initial date-input default. CSRF is intentionally
+  // re-read at submit time — Garoon reuses the dialog DOM across opens and
+  // rotates csrf_ticket between operations, so a captured value goes stale.
+  const initialCtx = readDialogContext(root);
   const panel = document.createElement('div');
   panel.className = 'bgs-todo-panel';
 
@@ -52,7 +63,7 @@ export function buildTodoPanel(ctx: DialogContext): HTMLElement {
   const dateInput = document.createElement('input');
   dateInput.type = 'date';
   dateInput.name = 'ldate';
-  dateInput.value = ctx.bdate;
+  dateInput.value = initialCtx?.bdate ?? '';
   dateInput.className = 'inputFrame-grn bgs-todo-date';
   dueRow.value.appendChild(dateInput);
 
@@ -132,7 +143,7 @@ export function buildTodoPanel(ctx: DialogContext): HTMLElement {
     setBusy(true);
     message.textContent = t('todo_submitting', '送信中…');
     try {
-      await submitTodo(ctx, {
+      await submitTodo(root, {
         title: titleInput.value,
         memo: memo.value,
         nolimit: noLimit.checked,
@@ -164,9 +175,17 @@ interface TodoFormValue {
   date: string; // YYYY-MM-DD
 }
 
-async function submitTodo(ctx: DialogContext, v: TodoFormValue): Promise<void> {
+async function submitTodo(root: HTMLElement, v: TodoFormValue): Promise<void> {
+  // Re-read csrf_ticket from the live dialog at submit time. Garoon rotates
+  // it between operations and reuses the dialog DOM across opens, so a value
+  // captured when the panel was built can be stale by the time we POST.
+  const csrfTicket = readCsrfTicket(root);
+  if (!csrfTicket) {
+    throw new Error('csrf_ticket not found in dialog');
+  }
+
   const fd = new FormData();
-  fd.append('csrf_ticket', ctx.csrfTicket);
+  fd.append('csrf_ticket', csrfTicket);
   fd.append('cid', '');
   fd.append('category', '');
   fd.append('title', v.title);
@@ -187,8 +206,13 @@ async function submitTodo(ctx: DialogContext, v: TodoFormValue): Promise<void> {
     body: fd,
     credentials: 'same-origin',
   });
-  if (!res.ok) {
-    throw new Error(`HTTP ${res.status}`);
+  // A redirect on this endpoint means Garoon bounced us to login or an error
+  // page — typically a stale csrf_ticket or expired session. Treat as failure
+  // so we don't reload the page and silently lose the user's input.
+  if (!res.ok || res.redirected) {
+    throw new Error(
+      `HTTP ${res.status}${res.redirected ? ' (redirected)' : ''}`,
+    );
   }
 }
 
