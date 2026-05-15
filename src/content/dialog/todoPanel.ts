@@ -53,11 +53,22 @@ export function buildTodoPanel(root: HTMLElement): HTMLElement {
   titleInput.maxLength = 100;
   titleInput.required = true;
   titleInput.className = 'inputFrame-grn simpleAddTitle-grn';
-  titleInput.addEventListener('keypress', e => {
-    if (e.key === 'Enter') e.preventDefault();
-  });
   titleRow.value.appendChild(titleInput);
   tbody.appendChild(titleRow.tr);
+
+  // Keep Garoon's document-level Enter handler from submitting the hidden
+  // schedule form while the user is on the ToDo tab. We deliberately do NOT
+  // preventDefault — the browser's implicit form submission on Enter is what
+  // fires our own submit handler below, so blocking it would also block
+  // "Enter submits the ToDo". Textareas keep their newline behavior because
+  // their default Enter action is newline, not submit.
+  form.addEventListener(
+    'keydown',
+    e => {
+      if (e.key === 'Enter') e.stopPropagation();
+    },
+    true,
+  );
 
   const dueRow = row(t('todo_due_label', '締切日'));
   const dateInput = document.createElement('input');
@@ -206,13 +217,10 @@ async function submitTodo(root: HTMLElement, v: TodoFormValue): Promise<void> {
     body: fd,
     credentials: 'same-origin',
   });
-  // A redirect on this endpoint means Garoon bounced us to login or an error
-  // page — typically a stale csrf_ticket or expired session. Treat as failure
-  // so we don't reload the page and silently lose the user's input.
-  if (!res.ok || res.redirected) {
-    throw new Error(
-      `HTTP ${res.status}${res.redirected ? ' (redirected)' : ''}`,
-    );
+  // Don't gate on res.redirected — Garoon's command_*.csp endpoints return a
+  // 302 to the list view on success too, which fetch follows transparently.
+  if (!res.ok) {
+    throw new Error(`HTTP ${res.status}`);
   }
 }
 
